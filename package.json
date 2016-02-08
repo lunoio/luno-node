@@ -1,0 +1,28 @@
+{
+  "name": "luno",
+  "version": "1.0.0",
+  "description": "Use the Luno API in Node.js",
+  "main": "lib/API.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lunoio/luno-node.git"
+  },
+  "keywords": [
+    "luno",
+    "user",
+    "management",
+    "api"
+  ],
+  "author": "Simon Tabor",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lunoio/luno-node/issues"
+  },
+  "homepage": "https://github.com/lunoio/luno-node#readme",
+  "dependencies": {
+    "request": "^2.69.0"
+  }
+}
