@@ -3,8 +3,6 @@
 Use the Luno API in Node.js
 
 This module is a very thin wrapper on the Luno API, handling authentication, request signing and errors.
-It also provides a middleware for checking if a user is logged in (e.g. the session is valid)
-
 
 ## Install
 
