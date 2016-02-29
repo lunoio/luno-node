@@ -86,55 +86,51 @@ luno.request('POST', '/users', {}, {
 
 ### Middleware
 
-Use a logged-in middleware to quickly ensure a user's session is valid and fetch their details.
+Use the session middleware to quickly ensure a session is valid and fetch the details.
+
+It'll set `req.session` to the session details (if the session is valid) and `req.user` to the user details (if the session is valid and there is an associated user).
 
 ```js
 // app is an express server
-app.use(function(req, res, next) {
-  var key = req.cookies.session;
-  if (!key) {
-    res.redirect('/login');
-    return;
-  }
 
-  var cookieOptions = {
+app.use(luno.session({
+  cookieName: 'session', // default config
+  cookieConfig: {
     maxAge: 1209600000, // 14 days
     httpOnly: true,
-    secure: true
-  };
+    // secure: true
+  }
+}));
 
-  luno.post('/sessions/access', { expand: 'user' }, {
-    key: key,
-    ip: req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress,
-    user_agent: req.headers['user-agent']
-  }, function(err, session) {
-    if (err) {
-      // bad session key
-      if (err.code === 'session_not_found') {
-        // remove the cookie
-        res.clearCookie('session', cookieOptions);
-        res.redirect('/login');
-        return;
-      }
+// admin section of the app requires the session to be valid
+// and to have an associated user
+app.use('/admin', function(req, res, next) {
+  if (!req.user) return res.redirect('/login');
+  next();
+});
 
-      console.error('Luno API error', err);
-      res.redirect('/login');
-      return;
-    }
+app.get('/', function(req, res, next) {
+  // req.session and req.user might be falsy
 
-    // re-set the cookie so it gets extended
-    res.cookie('session', session.key, cookieOptions);
+  if (req.user) {
+    res.send('Welcome ' + req.user.first_name);
+  } else {
+    res.send('Welcome');
+  }
+});
 
-    // set the session on the req so other places can access it (req.session.user = the user details)
-    req.session = session;
-    next();
-  });
+app.get('/admin', function(req, res, next) {
+  // req.session and req.user must be set
+
+  res.send('Hello ' + req.user.first_name);
 });
 ```
 
 ### Registration
 
 Let a user sign up and log them in.
+
+*Note:* you may want to look at [Luno CSRF](https://github.com/lunoio/luno-csrf-node) to add CSRF protection using Luno.
 
 ```js
 app.get('/signup', function(req, res) {
