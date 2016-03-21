@@ -1,6 +1,6 @@
 {
   "name": "luno",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Use the Luno API in Node.js",
   "main": "lib/API.js",
   "scripts": {
