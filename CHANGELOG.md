@@ -3,7 +3,7 @@
 ## [1.0.4](https://github.com/lunoio/luno-node/tree/v1.0.4) (2016-03-30)
 [Compare](https://github.com/lunoio/luno-node/compare/v1.0.3...v1.0.4)
 
-- Routes can now include `/v1` prefix without resulting in a `route_not_found` error ([\#1](https://github.com/lunoio/luno-node/issues/352))
+- Routes can now include `/v1` prefix without resulting in a `route_not_found` error ([\#1](https://github.com/lunoio/luno-node/issues/1))
 
 ## [1.0.3](https://github.com/lunoio/luno-node/tree/v1.0.3) (2016-03-21)
 [Compare](https://github.com/lunoio/luno-node/compare/v1.0.2...v1.0.3)
