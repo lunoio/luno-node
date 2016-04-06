@@ -19,7 +19,8 @@ var Luno = require('luno');
 var luno = new Luno({
   key: 'YOUR-API-KEY', // Your Luno API key
   secret: 'YOUR-SECRET-KEY', // Your Luno secret key
-  timeout: 10000 // Maximum request timeout (in milliseconds). Default 10000.
+  timeout: 10000, // Maximum request timeout (in milliseconds). Default 10000.
+  sandbox: false // Set to true to enable Sandbox Mode for all requests (unless otherwise specified in params).  See https://luno.io/docs#sandbox
 });
 
 luno.get('/users/usr_cz2D0VOugcBVWW', {}, function(err, user) {
@@ -40,7 +41,8 @@ luno.get('/users', {
 
 // POST
 // luno.post(route, query, body, callback);
-luno.post('/users/usr_cz2D0VOugcBVWW/sessions', {}, {
+luno.post('/sessions', {}, {
+  user_id: 'usr_cz2D0VOugcBVWW',
   ip: req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress,
   user_agent: req.headers['user-agent'],
   details: {
@@ -149,8 +151,9 @@ app.post('/signup', function(req, res, next) {
     if (err) return next(err);
 
     // automatically log this user in
-    luno.post('/users/' + user.id + '/sessions', {}, {
-      ip: req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    luno.post('/sessions', {}, {
+      user_id: user.id,
+      ip: req.connection.remoteAddress,
       user_agent: req.headers['user-agent']
     }, function(err, session) {
       if (err) return next(err);
