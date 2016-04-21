@@ -1,5 +1,12 @@
 # luno-node changelog
 
+## [1.1.0](https://github.com/lunoio/luno-node/tree/v1.1.0) (2016-04-21)
+[Compare](https://github.com/lunoio/luno-node/compare/v1.0.5...v1.1.0)
+
+- Added JSDoc comments to main functions
+- Added argument validation to ensure proper usage and highlight mistakes
+- Added utils to handle module errors and contain common functions in the future
+
 ## [1.0.5](https://github.com/lunoio/luno-node/tree/v1.0.5) (2016-04-06)
 [Compare](https://github.com/lunoio/luno-node/compare/v1.0.4...v1.0.5)
 
